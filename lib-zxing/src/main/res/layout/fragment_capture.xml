@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+
+    >
+<SurfaceView
+    android:id="@+id/preview_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center" />
+
+<com.uuzuche.lib_zxing.view.ViewfinderView
+    android:id="@+id/viewfinder_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:inner_corner_color="#EE7C0A"
+    app:inner_corner_width="3dp"
+    app:inner_scan_iscircle="false"
+    app:inner_scan_speed="10"
+    />
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:paddingTop="10dp"
+        >
+
+        <LinearLayout
+            android:id="@+id/ll_nfc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:background="@mipmap/icon_nfc" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:text="NFC"
+                android:textColor="#F39B4E" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="非遗商品防伪溯源系统"
+            android:textSize="@dimen/activity_text_title" />
+        <!--  <TextView
+              android:id="@+id/about"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="关于"
+              android:textColor="#519EC4"
+              android:layout_marginRight="14dp"
+              android:layout_alignParentRight="true"/>-->
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="14dp"
+            android:src="@mipmap/share"
+            android:textColor="#519EC4" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivider"
+            android:layout_below="@+id/menu"/>
+    </RelativeLayout>
+
+</FrameLayout>

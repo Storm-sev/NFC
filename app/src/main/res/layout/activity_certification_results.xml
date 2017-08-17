@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <include layout="@layout/top_title"></include>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@mipmap/certification_success"
+        android:gravity="center"
+        android:text="恭喜您，查询的作品为正品!"
+        android:textColor="#ED7702"
+        android:textSize="@dimen/activity_text_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="17dp"
+        android:paddingRight="17dp"
+        android:paddingTop="20dp">
+
+        <com.cheng315.nfc.view.AutoScaleImageView
+            android:id="@+id/iv_work"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/aaaaa" />
+
+        <TextView
+            android:id="@+id/tv_work_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="苏绣—颜伯龙花鸟小品"
+            android:textSize="@dimen/activity_text_title"
+
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="非遗项目："
+                android:textColor="@color/colorText" />
+
+            <TextView
+                android:id="@+id/project"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="国家级苏绣技艺"
+                android:textColor="@color/colorText" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="商户名称："
+                android:textColor="@color/colorText" />
+
+            <TextView
+                android:id="@+id/business_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="苏州市姚惠芬苏绣工作室"
+                android:textColor="@color/colorText" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="创作时间："
+                android:textColor="@color/colorText" />
+
+            <TextView
+                android:id="@+id/creat_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2015年6月"
+                android:textColor="@color/colorText" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/colorDivider"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="作品认证信息"
+            android:textSize="@dimen/activity_text_title"
+
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="商品编码："
+                android:textColor="@color/colorText" />
+
+            <TextView
+                android:id="@+id/work_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1234567890"
+                android:textColor="@color/colorText" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="认证证书："
+                android:textColor="@color/colorText" />
+
+            <TextView
+                android:id="@+id/certification_letter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="国家级非物质文化遗产项目"
+                android:textColor="@color/colorText" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="认证机构："
+                android:textColor="@color/colorText" />
+
+            <TextView
+                android:id="@+id/certification_organization"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="文化部非遗司"
+                android:textColor="@color/colorText" />
+
+        </LinearLayout>
+ <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="认证时间："
+                android:textColor="@color/colorText" />
+
+            <TextView
+                android:id="@+id/certification_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2015年6月"
+                android:textColor="@color/colorText" />
+
+        </LinearLayout>
+ <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="认证结果："
+                android:textColor="@color/colorText" />
+
+            <TextView
+                android:id="@+id/certification_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="国家级非遗名录项目"
+                android:textColor="@color/colorText" />
+
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/colorDivider"></View>
+    <RelativeLayout
+        android:id="@+id/work_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="17dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="作品信息"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/go"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDivider"></View>
+    <RelativeLayout
+        android:id="@+id/source"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="17dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="溯源信息"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/go"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+</LinearLayout>
+
+</ScrollView>

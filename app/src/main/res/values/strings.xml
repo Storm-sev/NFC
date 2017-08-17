@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">诚品宝</string>
+    <string name="error">Error</string>
+    <string name="no_nfc">No NFC found on this device</string>
+    <string name="nfc_disabled">NFC is not enabled. Please go to the wireless settings to enable it.</string>
+    <string name="menu_main_clear_title">Clear all</string>
+    <string name="nfc_version_updata">检测到新版本</string>
+    <string name="no_net">内部异常，请联系管理员</string>
+</resources>

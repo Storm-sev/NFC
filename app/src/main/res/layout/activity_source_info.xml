@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/top_title"></include>
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="17dp"
+            android:paddingRight="17dp"
+            android:paddingTop="20dp">
+<com.cheng315.nfc.view.ListViewForScrollView
+    android:id="@+id/list_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   android:cacheColorHint="@null"></com.cheng315.nfc.view.ListViewForScrollView>
+
+
+            <TextView
+                android:id="@+id/tv_work_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="苏绣—颜伯龙花鸟小品"
+                android:textSize="@dimen/activity_text_title"
+
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/item1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="创作地区："
+                    android:textColor="@color/colorText" />
+
+                <TextView
+                    android:id="@+id/creat_region"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="江苏苏州"
+                    android:textColor="@color/colorText" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/item2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="创作工艺："
+                    android:textColor="@color/colorText" />
+
+                <TextView
+                    android:id="@+id/creat_technology"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="苏绣技艺的制作主要有预备阶段、选择底料、制作底稿、绣花线、绑线连绑线、刺绣六个过程。"
+                    android:textColor="@color/colorText" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/item3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="参与人："
+                    android:textColor="@color/colorText" />
+
+                <TextView
+                    android:id="@+id/participants"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="姚惠芬"
+                    android:textColor="@color/colorText" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
