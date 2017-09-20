@@ -37,6 +37,9 @@ public class MyUtils {
     //下次使用的时候就可以不用访问网络资源了
     User user = gson.fromJson(UserUtils.getUserInfo(), User.class);*/
 
+
+
+
     /**
      * 只对中文进行编码
      * @param str

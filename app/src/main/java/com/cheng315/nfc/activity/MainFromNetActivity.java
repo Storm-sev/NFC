@@ -1,4 +1,4 @@
-package com.cheng315.nfc;
+package com.cheng315.nfc.activity;
 
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -36,17 +36,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.cheng315.nfc.R;
 import com.cheng315.nfc.adapter.MypageAdapter;
 import com.cheng315.nfc.entity.Banner;
 import com.cheng315.nfc.entity.Product;
+import com.cheng315.nfc.utils.DialogHelper;
+import com.cheng315.nfc.utils.LogUtils;
 import com.cheng315.nfc.view.ScaleScreenImageView;
-import com.efeiyi.BaseActivity;
 import com.efeiyi.Constant;
+import com.efeiyi.base.BaseActivity;
 import com.efeiyi.net.HttpRequest;
 import com.efeiyi.net.NetRequestUtil;
 import com.efeiyi.net.RequestCallback;
 import com.efeiyi.utils.MyUtils;
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.zhy.http.okhttp.callback.FileCallBack;
@@ -66,6 +68,11 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class MainFromNetActivity extends BaseActivity implements View.OnClickListener {
 
+
+    private static final String TAG = "MainFromNetActivity";
+
+
+
     private GifImageView dvRecieve;
     private NfcAdapter mAdapter;
     private PendingIntent mPendingIntent;
@@ -74,9 +81,9 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
     private AlertDialog mDialog;
     private Intent intent;
     //统计下载了几张图片
-    int n=0;
+    int n = 0;
     //统计当前viewpager轮播到第几页
-    int p=0;
+    int p = 0;
     private ViewPager vp;
     //准备好三张网络图片的地址
    /* private String imageUrl[]=new String[]
@@ -86,7 +93,7 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
     //装载下载图片的集合
     private List<ImageView> data;
     //控制图片是否开始轮播的开关,默认关的
-    private boolean isStart=false;
+    private boolean isStart = false;
 
     //存放代表viewpager播到第几张的小圆点
     private LinearLayout ll_tag;
@@ -107,7 +114,7 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (handler.hasMessages(MSG_UPDATE_IMAGE)){
+            if (handler.hasMessages(MSG_UPDATE_IMAGE)) {
                 handler.removeMessages(MSG_UPDATE_IMAGE);
             }
             switch (msg.what) {
@@ -142,7 +149,7 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
                     break;
                 case 2:
                     //接受到的线程发过来的p数字
-                    int page=(Integer) msg.obj;
+                    int page = (Integer) msg.obj;
                     vp.setCurrentItem(page);
                     break;
                 case MSG_UPDATE_IMAGE:
@@ -190,7 +197,10 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fresco.initialize(this);
+//        Fresco.initialize(this);
+
+        LogUtils.d(TAG,"进入到 这个方法里面----------------------MainFromNetActivity------------------------------");
+
         setContentView(R.layout.activity_main_net);
         getBannerUrl();
         pd = new ProgressDialog(MainFromNetActivity.this);
@@ -223,9 +233,9 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
         isPress = true;
         isUpdate = getIntent().getBooleanExtra("isUpdate", false);
         apkUrl = getIntent().getStringExtra("apkUrl");
-        if (isUpdate){
+        if (isUpdate) {
             showVersionUpdataDialog();
-        }else{
+        } else {
             showVersionNoUpdataDialog();
         }
         resolveIntent(getIntent());
@@ -244,13 +254,40 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
         hint = (TextView) findViewById(R.id.hint);
         handler.sendEmptyMessageDelayed(0, 2000);
     }
+
+    @Override
+    protected void initNfc() {
+
+    }
+
+    @Override
+    protected void initViews() {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected int attachLayoutRes() {
+        return 0;
+    }
+
+    @Override
+    protected void setUpListener() {
+
+    }
+
     private void showVersionNoUpdataDialog() {
-        new  AlertDialog.Builder(this)
-                .setTitle("版本提示" )
-                .setMessage("已经是最新版本" )
-                .setPositiveButton("确定" ,  null )
+        new AlertDialog.Builder(this)
+                .setTitle("版本提示")
+                .setMessage("已经是最新版本")
+                .setPositiveButton("确定", null)
                 .show();
     }
+
     private void showVersionUpdataDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.nfc_version_updata);
@@ -268,6 +305,7 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
         builder.create().show();
         return;
     }
+
     private void downloadNewApp(String apkUrl) {
         Map<String, String> paramsMap = new HashMap<>();
         NetRequestUtil.download(apkUrl, paramsMap, new FileCallBack(Environment.getExternalStorageDirectory().getAbsolutePath(), getNameFromUrl(apkUrl)) {
@@ -294,8 +332,7 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
 
     /**
      * @param url
-     * @return
-     * 从下载连接中解析出文件名
+     * @return 从下载连接中解析出文件名
      */
     @NonNull
     private String getNameFromUrl(String url) {
@@ -311,12 +348,12 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.addCategory(Intent.CATEGORY_DEFAULT);
-        intent.setDataAndType(Uri.fromFile(file),"application/vnd.android.package-archive");
+        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
         startActivity(intent);
     }
-    public void getBannerUrl() {
-        HttpRequest.get("http://m.315cheng.com/banner/getBannerList" , new RequestCallback<Banner>() {
 
+    public void getBannerUrl() {
+        HttpRequest.get("http://m.315cheng.com/banner/getBannerList", new RequestCallback<Banner>() {
 
 
             @Override
@@ -341,7 +378,8 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
         });
 
     }
-    public void show(){
+
+    public void show() {
    /*     //1、构建Toast对象
         Toast toast = new Toast(this);
 // 显示文本
@@ -367,6 +405,7 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
         toast.show();*/
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         /**
@@ -394,7 +433,7 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.menu:
                 showPopup(v);
                 break;
@@ -407,6 +446,7 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
                 break;
         }
     }
+
     private void showPopup(View view) {
         // 加载pop显示的布局文件
         View contentView = View.inflate(getApplicationContext(),
@@ -448,10 +488,10 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    private void initBanner()  {
+    private void initBanner() {
         rl_banner = (RelativeLayout) findViewById(R.id.rl_banner);
-        vp=(ViewPager) findViewById(R.id.vp);
-        ll_tag=(LinearLayout) findViewById(R.id.ll_tag);
+        vp = (ViewPager) findViewById(R.id.vp);
+//        ll_tag = (LinearLayout) findViewById(R.id.ll_tag);
         DisplayMetrics metric = new DisplayMetrics();
         this.getWindowManager().getDefaultDisplay().getMetrics(metric);
         // 屏幕宽度（像素）
@@ -472,13 +512,13 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
             public void onPageSelected(int position) {
                 handler.sendMessage(Message.obtain(handler, MSG_PAGE_CHANGED, position, 0));
 //把当前的页数赋值给P
-                p=position;
+                p = position;
                 //得到当前图片的索引,如果图片只有三张，那么只有0，1，2这三种情况
                 int currentIndex = (position % urlList.size());
-                for(int i=0;i<tag.length;i++){
-                    if(i==currentIndex){
+                for (int i = 0; i < tag.length; i++) {
+                    if (i == currentIndex) {
                         tag[i].setBackgroundResource(R.drawable.dot_focused);
-                    }else{
+                    } else {
                         tag[i].setBackgroundResource(R.drawable.dot_normal);
                     }
                 }
@@ -498,21 +538,22 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
                 }
             }
         });
-    //构造一个存储照片的集合
+        //构造一个存储照片的集合
         data = new ArrayList<ImageView>();
         //从网络上把图片下载下来
         if (urlList != null)
-        for(int i=0;i<urlList.size();i++){
-            getImageFromNet(urlList.get(i).getImgUrl().toString());
-            if(i == urlList.size() - 1){
-                vp.setAdapter(new MypageAdapter(data,MainFromNetActivity.this));
-                //创建小圆点
-                creatTag();
-            }
+            for (int i = 0; i < urlList.size(); i++) {
+                getImageFromNet(urlList.get(i).getImgUrl().toString());
+                if (i == urlList.size() - 1) {
+                    vp.setAdapter(new MypageAdapter(data, MainFromNetActivity.this));
+                    //创建小圆点
+                    creatTag();
+                }
 
-        }
+            }
         handler.sendEmptyMessageDelayed(MSG_BREAK_SILENT, 3000);
     }
+
     private void getImageFromNet(final String imagePath) {
         // TODO Auto-generated method stub
       /*  new Thread() {
@@ -529,14 +570,14 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
     }
 
     protected void creatTag() {
-        tag=new ImageView[urlList.size()];
-        for(int i=0;i<urlList.size();i++){
+        tag = new ImageView[urlList.size()];
+        for (int i = 0; i < urlList.size(); i++) {
 
-            tag[i]=new ImageView(MainFromNetActivity.this);
+            tag[i] = new ImageView(MainFromNetActivity.this);
             //第一张图片画的小圆点是白点
-            if(i==0){
+            if (i == 0) {
                 tag[i].setBackgroundResource(R.drawable.dot_focused);
-            }else{
+            } else {
                 //其它的画灰点
                 tag[i].setBackgroundResource(R.drawable.dot_normal);
             }
@@ -552,22 +593,23 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
         }
 
     }
+
     private void sendTag(String s) {
         HttpRequest.get(Constant.netUrl + "label/checkLabel?code=" + s, new RequestCallback<Product>() {
-          /*  @Override
-            public <T> void onResponse(T entity) {
-                System.out.println("onResponse");
-                final Intent intent = new Intent(MainFromNetActivity.this, CertificateResultsActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("mProduct", (Product) entity);
-                intent.putExtras(bundle);
-                MediaPlayer mediaPlayer01;
-                mediaPlayer01 = MediaPlayer.create(getBaseContext(), R.raw.ring);
-                mediaPlayer01.start();
-                startActivity(intent);
-                finish();
-            }
-*/
+            /*  @Override
+              public <T> void onResponse(T entity) {
+                  System.out.println("onResponse");
+                  final Intent intent = new Intent(MainFromNetActivity.this, CertificateResultsActivity.class);
+                  Bundle bundle = new Bundle();
+                  bundle.putSerializable("mProduct", (Product) entity);
+                  intent.putExtras(bundle);
+                  MediaPlayer mediaPlayer01;
+                  mediaPlayer01 = MediaPlayer.create(getBaseContext(), R.raw.ring);
+                  mediaPlayer01.start();
+                  startActivity(intent);
+                  finish();
+              }
+  */
             @Override
             public void onEmpty() {
                 startActivity(new Intent(MainFromNetActivity.this, CertificateFailed.class));
@@ -606,9 +648,10 @@ public class MainFromNetActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void showMessage(int title, int message) {
-        mDialog.setTitle(title);
-        mDialog.setMessage(getText(message));
-        mDialog.show();
+//        mDialog.setTitle(title);
+//        mDialog.setMessage(getText(message));
+//        mDialog.show();
+        DialogHelper.showNoClickDialog(this,title, message);
     }
 
     private NdefRecord newTextRecord(String text, Locale locale, boolean encodeInUtf8) {

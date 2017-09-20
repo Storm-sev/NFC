@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         minSdkVersion 14
@@ -38,4 +38,4 @@ ext {
     PUBLISH_VERSION = '2.1'
 }
 
-apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
+ apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'

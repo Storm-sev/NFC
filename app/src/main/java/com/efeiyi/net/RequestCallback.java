@@ -41,7 +41,7 @@ public abstract class RequestCallback<T extends Entity> implements okhttp3.Callb
         }
     }
 
-    public void onResponse(String content){
+    public void onResponse(String content) {
 
         JSONObject jsonObject = null;
         try {
@@ -89,20 +89,20 @@ public abstract class RequestCallback<T extends Entity> implements okhttp3.Callb
                 return;
             }
 
-                Type genType = getClass().getGenericSuperclass();
-                Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
-                Class<?> entityClass = (Class) params[0];
+            Type genType = getClass().getGenericSuperclass();
+            Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
+            Class<?> entityClass = (Class) params[0];
 
-                List<T> entityList = new ArrayList<T>();
-                Gson gson = new Gson();
-                if (data instanceof JSONObject) {
-                    T entity = (T) gson.fromJson(data.toString(), entityClass);
-                    entityList.add(entity);
-                    onResponse(entityList);
-                    return;
-                } else if (data instanceof JSONArray) {
+            List<T> entityList = new ArrayList<T>();
+            Gson gson = new Gson();
+            if (data instanceof JSONObject) {
+                T entity = (T) gson.fromJson(data.toString(), entityClass);
+                entityList.add(entity);
+                onResponse(entityList);
+                return;
+            } else if (data instanceof JSONArray) {
 
-                JSONArray jsonArray = (JSONArray)data;
+                JSONArray jsonArray = (JSONArray) data;
                 for (int i = 0; i < jsonArray.length(); i++) {
                     T entity = null;
                     try {
@@ -119,7 +119,7 @@ public abstract class RequestCallback<T extends Entity> implements okhttp3.Callb
         }
     }
 
-    public abstract   void onResponse(List<T> entityList);
+    public abstract void onResponse(List<T> entityList);
 
     public abstract void onSuccess();
 

@@ -1,13 +1,14 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 25
+    buildToolsVersion '26.0.1'
 
     defaultConfig {
         applicationId "com.cheng315.nfc"
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
     }
@@ -22,14 +23,25 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+
+    compile 'com.jakewharton:butterknife:8.6.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.squareup.okio:okio:1.5.0'
     compile 'com.zhy:okhttputils:2.3.8'
-    compile 'com.facebook.fresco:fresco:0.7.0'
+//    compile 'com.facebook.fresco:fresco:0.7.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
     compile project(':lib-zxing')
+    compile 'com.youth.banner:banner:1.4.9'  //最新版本
+
+//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.2'
+//    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.2'
+//    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.2'
+
+
 }

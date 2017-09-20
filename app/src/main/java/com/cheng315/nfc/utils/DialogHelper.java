@@ -1,26 +1,35 @@
 package com.cheng315.nfc.utils;
 
-import android.app.AlertDialog;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v7.app.AlertDialog;
 
 /**
- * Created by Administrator on 2017/8/16.
- * dialog 统一工具类
+ *
+ *  @author storm_
+ *  @date 2017/9/12
+ *  @address zq329051@outlook.com
+ *  @describe :　 dialog 工具类
+ *
  */
-
 public class DialogHelper {
 
-    private Context mContext;
 
-    private DialogPositiveButtonListener mListener;
+    public static void showNoListenerDialog(Context context, String title, String message) {
 
 
-    public DialogHelper(Context context) {
-        this.mContext = context;
+        AlertDialog.Builder dialog
+                = new AlertDialog.Builder(context);
+
+        dialog.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("确定", null)
+                .show();
+
     }
 
 
@@ -29,9 +38,9 @@ public class DialogHelper {
      *
      * @param title
      */
-    public void showDialog(@StringRes int title) {
+    public static void showDialog(Context context, @StringRes int title, final DialogPositiveButtonListener dialogPosListener) {
 
-        AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
 
         dialog.setMessage(title);
         dialog.setCancelable(false);
@@ -39,38 +48,95 @@ public class DialogHelper {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                if (mListener != null) {
-                    mListener.onDialogPositiveButtonListener();
+                if (dialogPosListener != null) {
+                    dialogPosListener.onDialogPositiveButtonListener();
+
                 }
 
             }
         });
 
         dialog.setNegativeButton("取消", null);
+        if (!((Activity) context).isFinishing()) {
+
+            dialog.show();
+        }
+
+    }
+
+
+    public static void showClickDialog(Context context, @StringRes int message, final DialogPositiveButtonListener dialogPositiveButtonListener) {
+
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        dialog.setMessage(message);
+        dialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                if (dialogPositiveButtonListener != null) {
+                    dialogPositiveButtonListener.onDialogPositiveButtonListener();
+
+                }
+
+            }
+        });
+
+        dialog.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (dialogPositiveButtonListener != null) {
+                    dialogPositiveButtonListener.onDialogNegativeButtonListener();
+
+                }
+
+            }
+        });
+
+
         dialog.show();
 
-    }
-
-
-    public void setDialogPositiveButtonListener(DialogPositiveButtonListener listener) {
-
-        this.mListener = listener;
-
-    }
-
-    public interface DialogPositiveButtonListener {
-
-        void onDialogPositiveButtonListener();
 
     }
 
 
     /**
-     * 水平加载进度条
+     * 无点击事件的dialog
+     *
+     * @param title
+     * @param message
      */
-    public ProgressDialog createProgressDialogH(@Nullable String dialogTitle) {
+    public static void showNoClickDialog(Context context, int title, int message) {
 
-        ProgressDialog dialogH = new ProgressDialog(mContext);
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        dialog.setTitle(title);
+        dialog.setMessage(context.getText(message));
+        dialog.setNeutralButton("OK", null);
+        if (!((Activity) context).isFinishing()) {
+
+            dialog.show();
+        }
+
+    }
+
+
+
+    public interface DialogPositiveButtonListener {
+
+        void onDialogPositiveButtonListener();
+
+        void onDialogNegativeButtonListener();
+    }
+
+
+    /**
+     * 加载数据进度条 (水平风格)
+     */
+    public static ProgressDialog createProgressDialogH(Context context, @Nullable String dialogTitle) {
+
+        ProgressDialog dialogH = new ProgressDialog(context);
+
         dialogH.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         if (null == dialogTitle) {
             dialogH.setTitle(null);
@@ -83,6 +149,8 @@ public class DialogHelper {
 
 
     }
+
+
 
 
 }

@@ -17,11 +17,8 @@ import java.io.File;
 
 public class AppUtil {
 
-
     /**
      * 当前应用的版本名称
-     *
-     * @return
      */
     public static String getVersionName() {
         PackageManager packageManager = App.getContext().getPackageManager();
@@ -69,11 +66,14 @@ public class AppUtil {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-
-        context.startActivity(intent);
+        context.getApplicationContext().startActivity(intent);
 
     }
+
+
+
 
 
     /**
@@ -86,4 +86,62 @@ public class AppUtil {
 
     }
 
+    /**
+     *
+     */
+    public static String getHex(byte[] bytes) {
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = bytes.length - 1; i >= 0; --i) {
+            int b = bytes[i] & 0xff;
+            if (b < 0x10)
+                sb.append('0');
+            sb.append(Integer.toHexString(b));
+        /*    if (i > 0) {
+                sb.append(" ");
+            }*/
+        }
+        return sb.toString();
+    }
+
+
+    /**
+     *
+     */
+    public static long getDec(byte[] bytes) {
+        long result = 0;
+        long factor = 1;
+        for (int i = 0; i < bytes.length; ++i) {
+            long value = bytes[i] & 0xffl;
+            result += value * factor;
+            factor *= 256l;
+        }
+        return result;
+
+    }
+
+
+    /**
+     *
+     */
+    public static long getReversed(byte[] bytes) {
+        long result = 0;
+        long factor = 1;
+        for (int i = bytes.length - 1; i >= 0; --i) {
+            long value = bytes[i] & 0xffl;
+            result += value * factor;
+            factor *= 256l;
+        }
+        return result;
+    }
+
+    /**
+     * 退出本应用
+     */
+    public static void exitApp() {
+
+        //检查app 中是否还有activity
+        System.exit(0);
+
+    }
 }

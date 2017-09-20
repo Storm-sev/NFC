@@ -32,6 +32,14 @@ public class App extends android.app.Application {
                 .setBorderSwitch(true)// 输出日志是否带边框开关，默认开
                 .setLogFilter(LogUtils.V);// log过滤器，和logcat过滤器同理，默认Verbose
 
+
+//        //内存泄漏检测
+//        if(LeakCanary.isInAnalyzerProcess(this)) {
+//            return;
+//        }
+
+//        LeakCanary.install(this);
+
     }
 
     public Activity getCurrentActivity() {

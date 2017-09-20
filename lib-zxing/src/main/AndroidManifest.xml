@@ -1,26 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.uuzuche.lib_zxing">
 
-    <application
-        android:allowBackup="true"
-        android:theme="@android:style/Theme.Light.NoTitleBar"
-        >
 
-        <activity
-            android:configChanges="orientation|keyboardHidden"
-            android:name="com.uuzuche.lib_zxing.activity.CaptureActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"
-
-            ></activity>
-        <activity
-            android:configChanges="orientation|keyboardHidden"
-            android:name="com.uuzuche.lib_zxing.activity.AboutActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"
-
-            ></activity>
-    </application>
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
 
@@ -31,5 +12,27 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
+
+    <application
+        android:allowBackup="true"
+        android:theme="@style/BaseAppTheme">
+
+        <activity
+            android:name="com.uuzuche.lib_zxing.activity.CaptureActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"
+
+            />
+        <activity
+            android:name="com.uuzuche.lib_zxing.activity.AboutActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"
+
+            />
+    </application>
+
 
 </manifest>

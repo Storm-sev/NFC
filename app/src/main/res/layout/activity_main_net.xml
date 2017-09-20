@@ -95,17 +95,6 @@
             android:text="请移动手机定位到合适位置"/>
 
         <!-- 存放代表viewpager播到第几张的小圆点 -->
-        <LinearLayout
-            android:id="@+id/ll_tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="5dip"
-            >
-
-        </LinearLayout>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

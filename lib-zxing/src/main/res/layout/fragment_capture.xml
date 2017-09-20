@@ -5,28 +5,28 @@
     android:layout_height="fill_parent"
 
     >
-<SurfaceView
-    android:id="@+id/preview_view"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center" />
 
-<com.uuzuche.lib_zxing.view.ViewfinderView
-    android:id="@+id/viewfinder_view"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:inner_corner_color="#EE7C0A"
-    app:inner_corner_width="3dp"
-    app:inner_scan_iscircle="false"
-    app:inner_scan_speed="10"
-    />
+    <SurfaceView
+        android:id="@+id/preview_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <com.uuzuche.lib_zxing.view.ViewfinderView
+        android:id="@+id/viewfinder_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:inner_corner_color="#FFFFFF"
+        app:inner_corner_width="2dp"
+        app:inner_scan_iscircle="false"
+        app:inner_scan_speed="15" />
+
     <RelativeLayout
         android:id="@+id/rl_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
-        android:paddingTop="10dp"
-        >
+        android:paddingTop="10dp">
 
         <LinearLayout
             android:id="@+id/ll_nfc"
@@ -72,11 +72,12 @@
             android:padding="14dp"
             android:src="@mipmap/share"
             android:textColor="#519EC4" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorDivider"
-            android:layout_below="@+id/menu"/>
+            android:layout_below="@+id/menu"
+            android:background="@color/colorDivider" />
     </RelativeLayout>
 
 </FrameLayout>

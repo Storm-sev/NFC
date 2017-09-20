@@ -27,6 +27,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.google.zxing.ResultPoint;
@@ -261,7 +262,12 @@ public final class ViewfinderView extends View {
         int drawTextSize = dip2px(getContext(), 12);//提示文字大小
         int drawTextColor = Color.GRAY;//提示文字颜色
         boolean drawTextGravityBottom = true;//提示文字位置
-        int drawTextMargin = dip2px(getContext(), 30);//提示文字与扫描框距离
+
+        DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
+
+        int drawTextMargin = (int) (metrics.heightPixels * 0.21);
+
+//        int drawTextMargin = dip2px(getContext(), 30);//提示文字与扫描框距离
         int width = canvas.getWidth();
         paint.setColor(drawTextColor);
         paint.setTextSize(drawTextSize);

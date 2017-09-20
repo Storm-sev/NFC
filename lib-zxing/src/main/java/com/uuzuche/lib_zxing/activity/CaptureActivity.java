@@ -66,8 +66,16 @@ public class CaptureActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        // 检查版本
         checkCameraPermission(this, mOnCameraPermissionListener);
     }
+
+    /**
+     * 6.0权限申请
+     * @param context
+     * @param listener
+     * @return
+     */
     public boolean checkCameraPermission(Context context, OnCameraPermissionListener listener) {
         mOnCameraPermissionListener = listener;
         boolean granted = true;

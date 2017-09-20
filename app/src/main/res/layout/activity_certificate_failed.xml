@@ -3,25 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<include layout="@layout/top_title"></include>
+
+    <include layout="@layout/top_title" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/activity_text_title"
+            android:text="很抱歉，您查询的防伪码无效"
             android:textColor="@color/colorText"
-            android:text="很抱歉，您查询的防伪码无效"/>
+            android:textSize="@dimen/activity_text_title" />
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/activity_text_title"
+            android:text="注意防伪，谨防假冒"
             android:textColor="@color/colorText"
-            android:text="注意防伪，谨防假冒"/>
+            android:textSize="@dimen/activity_text_title" />
     </LinearLayout>
 
 </LinearLayout>

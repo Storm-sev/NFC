@@ -19,13 +19,22 @@ import okhttp3.Response;
  */
 public class DownloadUtil {
 
-    private static DownloadUtil downloadUtil;
+    private static volatile DownloadUtil downloadUtil;
     private final OkHttpClient okHttpClient;
 
     public static DownloadUtil get() {
+//        if (downloadUtil == null) {
+//            downloadUtil = new DownloadUtil();
+//        }
         if (downloadUtil == null) {
-            downloadUtil = new DownloadUtil();
+            synchronized (DownloadUtil.class) {
+                if (downloadUtil == null) {
+                    downloadUtil = new DownloadUtil();
+                }
+            }
         }
+
+
         return downloadUtil;
     }
 

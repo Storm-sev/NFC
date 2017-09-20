@@ -88,10 +88,16 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
             view = inflater.inflate(R.layout.fragment_capture, null);
         }
 
-        viewfinderView = (ViewfinderView) view.findViewById(R.id.viewfinder_view);
-        surfaceView = (SurfaceView) view.findViewById(R.id.preview_view);
-        menu = (ImageView) view.findViewById(R.id.menu);
-        llNfcCode = (LinearLayout) view.findViewById(R.id.ll_nfc);
+        initViews(view);
+        setUpListener();
+
+        surfaceHolder = surfaceView.getHolder();
+
+        return view;
+    }
+
+    private void setUpListener() {
+
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,10 +110,13 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
                 getActivity().finish();
             }
         });
+    }
 
-        surfaceHolder = surfaceView.getHolder();
-
-        return view;
+    private void initViews(View view) {
+        viewfinderView = (ViewfinderView) view.findViewById(R.id.viewfinder_view);
+        surfaceView = (SurfaceView) view.findViewById(R.id.preview_view);
+        menu = (ImageView) view.findViewById(R.id.menu);
+        llNfcCode = (LinearLayout) view.findViewById(R.id.ll_nfc);
     }
 
     @Override

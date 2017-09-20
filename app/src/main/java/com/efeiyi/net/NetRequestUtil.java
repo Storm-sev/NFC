@@ -22,9 +22,9 @@ public class NetRequestUtil<T> {
                         .url(url)
                         .content(gson.toJson(t))
                         .build()
-                        .connTimeOut(50000)
-                        .readTimeOut(50000)
-                        .writeTimeOut(50000)
+                        .connTimeOut(5000)
+                        .readTimeOut(5000)
+                        .writeTimeOut(5000)
                         .execute(callback);
             }
         }.start();

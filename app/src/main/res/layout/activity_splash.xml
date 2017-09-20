@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/splash_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3E83FF"
     android:orientation="vertical">
 
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_splash"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@drawable/splash_bg" />-->
+
     <ImageView
+        android:id="@+id/splash_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@mipmap/splash"></ImageView>
+        android:background="@drawable/splash_bg" />
+
 
 </LinearLayout>

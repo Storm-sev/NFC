@@ -1,28 +1,33 @@
-package com.cheng315.nfc;
+package com.cheng315.nfc.activity;
 
-import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
-import android.nfc.NfcAdapter;
-import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.cheng315.nfc.R;
 import com.cheng315.nfc.entity.Product;
-import com.efeiyi.BaseActivity;
+import com.cheng315.nfc.utils.ImageLoaderUtils;
+import com.cheng315.nfc.utils.LogUtils;
+import com.efeiyi.Constant;
+import com.efeiyi.base.BaseNfcActivity;
 import com.efeiyi.utils.DateUtil;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 /**
  * Created by YangZhenjie on 2016/10/26.
+ * NFC扫描结果
  */
-public class CertificateResultsActivity extends BaseActivity implements View.OnClickListener {
+public class CertificateResultsActivity extends BaseNfcActivity {
+
+
+    private static final String TAG = "CertificateResultsActivity";
 
     private ImageView ivWork;
     private ImageView back;
@@ -37,14 +42,41 @@ public class CertificateResultsActivity extends BaseActivity implements View.OnC
     private RelativeLayout workInfo;
     private RelativeLayout source;
     private Product mProduct;
-    private NfcAdapter mAdapter;
-    private PendingIntent mPendingIntent;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Fresco.initialize(this);
-        setContentView(R.layout.activity_certification_results);
+    protected void setUpListener() {
+
+        source.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                toSoureInfoActivity();
+
+            }
+        });
+
+        workInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toWorkInfoActivity();
+            }
+        });
+
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtils.d(TAG, "点击事件的监听");
+                finish();
+            }
+        });
+
+
+    }
+
+
+    @Override
+    protected void initViews() {
         ivWork = (ImageView) findViewById(R.id.iv_work);
         back = (ImageView) findViewById(R.id.back);
         workTitle = (TextView) findViewById(R.id.tv_work_title);
@@ -57,12 +89,20 @@ public class CertificateResultsActivity extends BaseActivity implements View.OnC
         certificationTime = (TextView) findViewById(R.id.certification_time);
         workInfo = (RelativeLayout) findViewById(R.id.work_info);
         source = (RelativeLayout) findViewById(R.id.source);
+    }
 
+    @Override
+    protected void initData() {
         mProduct = ((List<Product>) getIntent().getSerializableExtra("mProduct")).get(0);
         if (mProduct.getName() != null)
             workTitle.setText(mProduct.getName());
 //        Glide.with(this).load("http://master3.efeiyi.com/" + mProduct.getLogo()).placeholder(R.mipmap.icon_empty).error(R.mipmap.icon_empty).into(ivWork);
-        Picasso.with(this).load("http://master3.efeiyi.com/" + mProduct.getLogo()).placeholder(R.mipmap.icon_empty).error(R.mipmap.icon_empty).into(ivWork);
+//        Picasso.with(this).load("http://master3.efeiyi.com/" + mProduct.getLogo()).placeholder(R.mipmap.icon_empty).error(R.mipmap.icon_empty).into(ivWork);
+
+        // 图片请求框架 glide
+        ImageLoaderUtils.loadImage(this, ivWork, Constant.netImageUrl + mProduct.getLogo());
+
+
 
         if (mProduct.getProductSeries() != null && mProduct.getProductSeries().getName() != null)
             project.setText(mProduct.getProductSeries().getName());
@@ -79,56 +119,31 @@ public class CertificateResultsActivity extends BaseActivity implements View.OnC
         if (mProduct.getTenant() != null && mProduct.getTenant().getTenantCertificationList() != null && mProduct.getTenant().getTenantCertificationList().get(0).getTheDate() != 0)
             certificationTime.setText(DateUtil.date2yyyyMM(new Date(mProduct.getTenant().getTenantCertificationList().get(0).getTheDate())));
 
-        mPendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-        mAdapter = NfcAdapter.getDefaultAdapter(this);
 
-        workInfo.setOnClickListener(this);
-        source.setOnClickListener(this);
-        back.setOnClickListener(this);
+
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        if (mAdapter != null) {
-            mAdapter.enableForegroundDispatch(this, mPendingIntent, null, null);
-        }
+    protected int attachLayoutRes() {
+        return R.layout.activity_certification_results;
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (mAdapter != null) {
-            mAdapter.disableForegroundDispatch(this);
-            mAdapter.disableForegroundNdefPush(this);
-        }
+
+    /**
+     * 跳转 sourceInfo
+     */
+    private void toSoureInfoActivity() {
+        SourceInfoActivity.startSelf(CertificateResultsActivity.this, mProduct);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.back:
-                //
-                // startActivity(new Intent(this, MainActivity.class));
-                finish();
-                break;
-            case R.id.work_info:
-                Intent intent1 = new Intent(this, WorkInfoActivity.class);
-                Bundle bundle1 = new Bundle();
-                bundle1.putSerializable("mProduct", mProduct);
-                intent1.putExtras(bundle1);
-                startActivity(intent1);
-                break;
-            case R.id.source:
-                Intent intent2 = new Intent(this, SourceInfoActivity.class);
-                Bundle bundle2 = new Bundle();
-                bundle2.putSerializable("mProduct", mProduct);
-                intent2.putExtras(bundle2);
-                startActivity(intent2);
-                break;
-        }
 
+    /**
+     * 跳转workinfo
+     */
+    private void toWorkInfoActivity() {
+        WorkInfoActivity.startSelf(CertificateResultsActivity.this, mProduct);
     }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -141,11 +156,13 @@ public class CertificateResultsActivity extends BaseActivity implements View.OnC
         return super.onKeyDown(keyCode, event);
     }
 
-  /* @Override
-    protected void onNewIntent(Intent intent) {
-        setIntent(intent);
-       intent = getIntent();
+    public static void startSelf(Context context, List<Product> entityList) {
+
+
+        Intent intent = new Intent(context, CertificateResultsActivity.class);
+        intent.putExtra("mProduct", (Serializable) entityList);
+        context.startActivity(intent);
+
     }
-*/
 
 }
